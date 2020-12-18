@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "bukukas-e5cbf": {
+      "hosting": {
+        "bukukas-angular": [
+          "bukukas-e5cbf"
+        ]
+      }
+    }
+  }
+}

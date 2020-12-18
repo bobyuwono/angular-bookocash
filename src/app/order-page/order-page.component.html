@@ -1,0 +1,7 @@
+<p>order-page works coyy!</p>
+<button (click)="makeOrder()" mat-fab>
+    <mat-icon>add</mat-icon>
+</button>
+
+
+<app-order *ngFor="let order of orders | async" [order]="order"></app-order>

@@ -1,0 +1,7 @@
+<mat-card class="item" (dblclick)="edit.emit(order)">
+    <h2>{{ order.date }}</h2>
+    <p *ngFor="let item of order.items | async" >
+      {{ item.title }}
+    </p>
+
+  </mat-card>

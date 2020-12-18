@@ -1,0 +1,25 @@
+<mat-card class="mat-elevation-z5">
+    <mat-card-header>
+        <mat-card-title>Daftar Menu</mat-card-title>
+        <mat-card-subtitle>Toko Kesayangan</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <app-order-menu-button *ngFor="let menu of menus | async" [menu]="menu"></app-order-menu-button>
+    </mat-card-content>
+    
+</mat-card>
+
+<mat-card class="mat-elevation-z5">
+    <mat-card-header>
+        <mat-card-title>Basket</mat-card-title>
+        <mat-card-subtitle>"Ada pesanan tambahan?"</mat-card-subtitle>
+    </mat-card-header>
+    <div mat-dialog-actions>
+        
+        <button mat-button (click)="cancel()">Cancel</button>
+        <button mat-button > Proceed</button>
+        <!-- <button mat-button (click)="proceed()" [mat-dialog-close]="{ order: data.order }"> Proceed</button>   -->
+    </div>
+
+</mat-card>

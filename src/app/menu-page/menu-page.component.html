@@ -1,0 +1,5 @@
+<button (click)="addMenu()" mat-button>
+  <mat-icon>add</mat-icon> Add Menu
+</button>
+
+<app-menu (edit)="editMenu('menu', $event)" *ngFor="let menu of menus | async" [menu]="menu"></app-menu>
