@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {Menu} from'../menu/menu';
 import { MatDialog } from '@angular/material/dialog';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+import {Menu} from'../menu/menu';
 import {MenuDialogComponent} from '../menu-dialog/menu-dialog.component';
 import {MenuDialogResult} from '../menu-dialog/menu-dialog.component';
-import { AngularFirestore } from '@angular/fire/firestore';
+
 import {MenuService} from '../menu.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-menu-page',
@@ -16,14 +19,14 @@ export class MenuPageComponent implements OnInit {
 
   constructor( private menuService: MenuService, private dialog: MatDialog, private store: AngularFirestore) { }
 
+  menus :Observable<any[]>;
 
-  menus : Menu[] =[];
   ngOnInit() {
-    this.getMenu();
+    this.getMenu()
   }
 
   getMenu() {
-    this.menuService.getMenu().subscribe(menus => this.menus = menus);
+    this.menus = this.menuService.getMenu()
   }
   
   addMenu(): void {

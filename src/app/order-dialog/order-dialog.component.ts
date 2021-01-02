@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, OnInit, Inject, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { Order} from '../order/order';
-import {Menu} from '../menu/menu';
+import { Order } from '../order/order';
+import { Menu } from '../menu/menu';
+import { MenuService } from '../menu.service';
+import {OrderService} from '../order.service';
 
 @Component({
   selector: 'app-order-dialog',
@@ -12,29 +13,41 @@ import {Menu} from '../menu/menu';
 })
 export class OrderDialogComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<OrderDialogComponent>,
-    private store: AngularFirestore,
-    @Inject(MAT_DIALOG_DATA) public data: OrderDialogData
-  ) { }  
+    private menuService: MenuService,
+    private orderService : OrderService
+    ) {}
 
-  menus = this.store.collection('menu').valueChanges({ idField: 'id' });
-  dateCreated : Date;
+  menus: Observable<Menu[]>;
+  basket = [];
+  total:number = 0 ;
+  dateCreated: Date;
 
-  private backupOrder: Partial<Order> = { ...this.data.order };
-  
-  order : Order ;
-  cancel():void{
-    this.data.order.date = this.backupOrder.date;
-    this.data.order.items = this.backupOrder.items;
-    this.dialogRef.close(this.data);
-  }  
   ngOnInit() {
-    this.instantiateOrderTime()
-  }
-  instantiateOrderTime(){
-    this.dateCreated = new Date();
+    this.getmenu()
   }
 
+  //add menu to basket before being sent to order queue
+  addToBasket(menu: Menu){
+    this.basket.push(menu);
+    let price = (menu.price);
+    let convertedPrice= Number(price)
+    this.countTotal(convertedPrice);
+    this.basket.sort((a, b) => (a.title > b.title) ? 1 : -1)
+    console.log(this.basket);
+    console.log(this.total)
+  }
+
+  countTotal(price:number){
+    this.total += price;
+  }
+
+  upload(basket, total){
+    this.orderService.uploadToFire(basket,total)
+  }
+
+  getmenu() {
+    this.menus = this.menuService.getMenu()
+  }
 }
 
 

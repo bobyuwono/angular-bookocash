@@ -1,9 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import {OrderDialogComponent} from '../order-dialog/order-dialog.component';
 import {OrderDialogResult} from '../order-dialog/order-dialog.component';
+
+import {OrderService} from '../order.service';
+import { Observable } from 'rxjs';
+import { Order } from '../order/order';
+
 
 
 @Component({
@@ -11,14 +20,25 @@ import {OrderDialogResult} from '../order-dialog/order-dialog.component';
   templateUrl: './order-page.component.html',
   styleUrls: ['./order-page.component.css']
 })
+
 export class OrderPageComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private store: AngularFirestore) { }
+  constructor(
+    private dialog: MatDialog, 
+    private store: AngularFirestore,
+    private orderService: OrderService,
+    ) { }
   
-  orders = this.store.collection('order').valueChanges({ idField: 'id' });
+ 
+  // displayedColumns: string[]  = ['id', 'date', 'total items','total price']; 
+  orders:Observable<Order[]> = this.orderService.getOrders()
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = this.orders;
 
-  ngOnInit(): void {
+  ngOnInit() {   
+
   }
+
 
   makeOrder(): void{
     const dialogRef = this.dialog.open(OrderDialogComponent, {

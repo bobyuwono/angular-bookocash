@@ -5,9 +5,11 @@
     </mat-card-header>
 
     <mat-card-content>
-        <app-order-menu-button *ngFor="let menu of menus | async" [menu]="menu"></app-order-menu-button>
+        <p>Hello</p>
+        <app-order-menu-button *ngFor="let menu of menus | async" [menu]="menu" (click)="addToBasket(menu)">
+        </app-order-menu-button>
     </mat-card-content>
-    
+
 </mat-card>
 
 <mat-card class="mat-elevation-z5">
@@ -15,11 +17,22 @@
         <mat-card-title>Basket</mat-card-title>
         <mat-card-subtitle>"Ada pesanan tambahan?"</mat-card-subtitle>
     </mat-card-header>
+
+    <mat-card-content>
+        <ul>
+            <li *ngFor="let item of basket">
+                {{item.title}}
+            </li>
+        </ul>
+
+        Total: <span> </span>{{total}}
+    </mat-card-content>
+
     <div mat-dialog-actions>
-        
-        <button mat-button (click)="cancel()">Cancel</button>
-        <button mat-button > Proceed</button>
-        <!-- <button mat-button (click)="proceed()" [mat-dialog-close]="{ order: data.order }"> Proceed</button>   -->
+
+        <button mat-button>Cancel</button>
+        <button mat-button (click)="upload(basket, total)"> Proceed</button>
     </div>
+
 
 </mat-card>

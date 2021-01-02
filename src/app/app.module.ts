@@ -7,9 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatListModule} from '@angular/material/list'; 
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -29,8 +29,10 @@ import { MenuDialogComponent } from './menu-dialog/menu-dialog.component';
 import { environment } from 'src/environments/environment';
 import { OrderPageComponent } from './order-page/order-page.component';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
+
 import { OrderMenuButtonComponent } from './order-menu-button/order-menu-button.component';
 
 
@@ -48,10 +50,10 @@ import { OrderMenuButtonComponent } from './order-menu-button/order-menu-button.
     OrderPageComponent,
     OrderDialogComponent,
     OrderMenuButtonComponent,
-    
+
   ],
   imports: [
-    
+
     MatInputModule,
     FormsModule,
     MatDialogModule,
@@ -67,10 +69,11 @@ import { OrderMenuButtonComponent } from './order-menu-button/order-menu-button.
     MatSidenavModule,
     MatDividerModule,
     MatGridListModule,
+    MatTableModule, 
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
